@@ -42,7 +42,7 @@
     [self.view bringSubviewToFront:self.scanQRCodeBtn];
     [self.view bringSubviewToFront:self.creatQRCodeBtn];
     scanQRCodeBtnSelected = YES;
-//    [self setupCamera];
+    [self setupCamera];
     WS(ws);
     self.scanQRCodeVC.restartCameraBlock = ^ {
         [ws.session startRunning];
