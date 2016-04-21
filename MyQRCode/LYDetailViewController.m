@@ -12,68 +12,6 @@
 #import "LYCreatQRCodeViewController.h"
 #import "LYMacro.h"
 
-//@protocol NetworkErrorProcessDelegate <NSObject>
-//
-//- (void)processNetworkError:(id)error;
-//
-//@end
-//
-//@interface NetworkErrorManager : NSObject
-//
-//+ (instancetype)instance;
-//
-//- (void)addNetworkErrorTarget:(__weak id<NetworkErrorProcessDelegate>)target;
-//
-//@end
-//
-//@implementation NetworkErrorManager{
-//    NSMutableSet *_sets;
-//}
-//
-//- (instancetype)init{
-//    self = [super init];
-//    if (self) {
-//
-//    }
-//    return self;
-//}
-//
-//- (void)addNetworkErrorTarget:(__weak id<NetworkErrorProcessDelegate>)target{
-//    [_sets addObject:target];
-//}
-//
-//- (void)processNetworkError:(id)noti{
-//
-//}
-//
-//@end
-//
-//@interface BaseViewController (NetworkError)
-//
-//- (void)processNetworkError:(id)error;
-//
-//@end
-//
-//@implementation BaseViewController(NetworkError)
-//
-//- (void)processNetworkError:(id)error{
-//    if (type == alert) {
-//        [self showAlert];
-//    }else{
-//        [self showToast];
-//    }
-//}
-//
-//- (void)showAlert{
-//
-//}
-//
-//- (void)showToast{
-//
-//}
-//
-//@end
-
 @interface LYDetailViewController ()<AVCaptureMetadataOutputObjectsDelegate> {
     BOOL creatQRCodeBtnSelected;
     BOOL scanQRCodeBtnSelected;
@@ -101,8 +39,10 @@
     [self addChildViewController:_scanQRCodeVC];
     [self addChildViewController:_creatQRCodeVC];
     [self.view addSubview:self.scanQRCodeVC.view];
+    [self.view bringSubviewToFront:self.scanQRCodeBtn];
+    [self.view bringSubviewToFront:self.creatQRCodeBtn];
     scanQRCodeBtnSelected = YES;
-    [self setupCamera];
+//    [self setupCamera];
     WS(ws);
     self.scanQRCodeVC.restartCameraBlock = ^ {
         [ws.session startRunning];
@@ -144,6 +84,7 @@
     } else {
         UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"" message:@"请打开相机" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alertView show];
+        return;
     }
     self.output = [[AVCaptureMetadataOutput alloc] init];
     [self.output setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
